@@ -5,13 +5,7 @@
 {{- define "base.deployment.tpl" -}}
 apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
-metadata:
-  {{- with .Values.commonAnnotations }}
-  annotations: {{- toYaml . | nindent 4 }}
-  {{- end }}
-  labels: {{- include "base.labels.standard" . | nindent 4 }}
-  name: {{ include "base.names.fullname" . }}
-  namespace: {{ include "common.names.namespace" . }}
+metadata: {{- include "base.metadata" . | nindent 2 }}
 spec:
   {{- if and .Values.replicaCount (not (.Values.autoscaling).enabled) }}
   replicas: {{ .Values.replicaCount }}

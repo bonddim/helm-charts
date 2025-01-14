@@ -5,11 +5,5 @@
 {{- define "base.secret.tpl" -}}
 apiVersion: v1
 kind: Secret
-metadata:
-  {{- with .Values.commonAnnotations }}
-  annotations: {{- toYaml . | nindent 4 }}
-  {{- end }}
-  labels: {{- include "base.labels.standard" . | nindent 4 }}
-  name: {{ include "common.names.fullname" . }}
-  namespace: {{ include "common.names.namespace" . }}
+metadata: {{- include "base.metadata" . | nindent 2 }}
 {{- end -}}
