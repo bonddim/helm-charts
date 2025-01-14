@@ -13,8 +13,8 @@ metadata:
   labels: {{- include "base.labels.standard" (dict "customLabels" $podLabels "context" $) | nindent 4 }}
 spec:
   {{- if .Values.affinity }}
-  affinity: {{- toYaml . | nindent 4 }}
-  {{- else }}
+  affinity: {{- toYaml .Values.affinity | nindent 4 }}
+  {{- else if (or .Values.podAffinityPreset .Values.podAntiAffinityPreset .Values.nodeAffinityPreset) }}
   affinity:
     {{- with (include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "customLabels" $podLabels "context" . "component" .Values.component)) }}
     podAffinity: {{- . | nindent 6 }}
