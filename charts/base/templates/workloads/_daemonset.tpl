@@ -1,15 +1,12 @@
-{{- define "base.deployment" -}}
+{{- define "base.daemonset" -}}
 {{- include "base.utils.merge" (set . "base" "base.deployment.tpl") }}
 {{- end -}}
 
-{{- define "base.deployment.tpl" -}}
-apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
-kind: Deployment
+{{- define "base.daemonset.tpl" -}}
+apiVersion: {{ include "common.capabilities.daemonset.apiVersion" . }}
+kind: DaemonSet
 metadata: {{- include "base.metadata" . | nindent 2 }}
 spec:
-  {{- if and .Values.replicaCount (not (.Values.autoscaling).enabled) }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
   {{ with .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ . }}
   {{ end }}
