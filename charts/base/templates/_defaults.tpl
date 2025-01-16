@@ -37,8 +37,7 @@ autoscale:
     kind: Deployment
 
 ### Network ###
-service:
-  annotations: {}
+service: {}
 ingress:
   annotations: {}
 networkPolicy: {}

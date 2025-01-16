@@ -5,10 +5,10 @@
 {{- define "base.ingress.tpl" -}}
 
 apiVersion: {{ include "common.capabilities.ingress.apiVersion" $ }}
-{{- with .Values.ingress }}
 kind: Ingress
-metadata: {{- include "base.metadata" (dict "context" $ "values" .) | nindent 2 }}
+metadata: {{- include "base.metadata" (dict "context" $ "values" .Values.ingress) | nindent 2 }}
 spec:
+{{- with .Values.ingress }}
   {{- if and .ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" $)) }}
   ingressClassName: {{ .ingressClassName | quote }}
   {{- end }}

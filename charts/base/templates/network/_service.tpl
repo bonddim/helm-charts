@@ -3,11 +3,11 @@
 {{- end -}}
 
 {{- define "base.service.tpl" -}}
-{{- with .Values.service }}
 apiVersion: v1
 kind: Service
-metadata: {{- include "base.metadata" (dict "context" $ "values" .) | nindent 2 }}
+metadata: {{- include "base.metadata" (dict "context" $ "values" .Values.service) | nindent 2 }}
 spec:
+{{- with .Values.service }}
   {{- with .clusterIP }}
   clusterIP: {{ . }}
   {{- end }}
