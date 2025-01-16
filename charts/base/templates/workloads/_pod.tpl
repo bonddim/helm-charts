@@ -22,8 +22,8 @@ spec:
     {{- with (include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "customLabels" $podLabels "context" . "component" .Values.component)) }}
     podAntiAffinity: {{- . | nindent 6 }}
     {{- end }}
-    {{- with (include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values)) }}
-    nodeAffinity: {{- . | nindent 6 }}
+    {{- with .Values.nodeAffinityPreset }}
+    nodeAffinity: {{- include "common.affinities.nodes" . | nindent 6 }}
     {{- end }}
   {{- end }}
   {{- with (toYaml .Values.automountServiceAccountToken) }}
@@ -70,17 +70,16 @@ spec:
       {{- with .Values.startupProbe }}
       startupProbe: {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if or .Values.service.port .Values.service.ports }}
+      {{- with .Values.ports }}
       ports:
-        {{- range .Values.service.ports }}
-        - containerPort: {{ default .port .targetPort | int }}
-          name: {{ .name }}
-          protocol: {{ default "TCP" .protocol }}
-        {{- end }}
-        {{- if .Values.service.port }}
-        - containerPort: {{ default .Values.service.port .Values.service.targetPort | int }}
-          name: {{ default "http" .Values.service.name }}
-          protocol: {{ default "TCP" .Values.service.protocol }}
+        {{- range . }}
+        - containerPort: {{ default .port .containerPort | int }}
+          {{- with .name}}
+          name: {{ . }}
+          {{- end }}
+          {{- with .protocol }}
+          protocol: {{ . }}
+          {{- end }}
         {{- end }}
       {{- end }}
       {{- if .Values.resources }}

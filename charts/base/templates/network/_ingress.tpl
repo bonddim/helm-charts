@@ -44,18 +44,20 @@ spec:
 {{- end -}}
 {{- end -}}
 
-
 {{/*
 Ingress path definition
+Will generate default path "/" to "http" port if provided "paths" is empty
 {{- include "base.ingress.path" (dict "context" . "paths" .Values.ingress.paths) }}
 */}}
 {{- define "base.ingress.paths" -}}
 {{- $service := include "base.names.fullname" .context -}}
-{{- range .paths }}
+{{- $firstPort := $.context.Values.ports | first }}
+{{- $defaultPort := default $firstPort.containerPort $firstPort.port -}}
+{{- range (ternary (list (dict "path" "/" "port" $defaultPort)) .paths (empty .paths)) }}
 - path: {{ .path }}
   {{- if eq "true" (include "common.ingress.supportsPathType" $.context) }}
   pathType: {{ default "ImplementationSpecific" .pathType }}
   {{- end }}
-  backend: {{- include "common.ingress.backend" (dict "serviceName" $service "servicePort" (default "http" .port) "context" $.context)  | nindent 4 }}
+  backend: {{- include "common.ingress.backend" (dict "serviceName" $service "servicePort" (default $defaultPort .port) "context" $.context)  | nindent 4 }}
 {{- end -}}
 {{- end -}}

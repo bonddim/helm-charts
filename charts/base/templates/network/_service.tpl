@@ -36,29 +36,42 @@ spec:
   loadBalancerSourceRanges: {{- toYaml . | nindent 4 }}
   {{- end }}
   ports:
+    {{- /* Use service.ports only if defined */ -}}
+    {{- if .ports }}
     {{- range .ports }}
     - port: {{ .port | int }}
-      protocol: {{ default "TCP" .protocol }}
       targetPort: {{ default .port .targetPort | int }}
-      name: {{ .name }}
       {{- with .appProtocol }}
       appProtocol: {{ . }}
+      {{- end }}
+      {{- with .name}}
+      name: {{ . }}
       {{- end }}
       {{- with .nodePort }}
       nodePort: {{ . | int}}
       {{- end }}
+      {{- with .protocol }}
+      protocol: {{ . }}
+      {{- end }}
     {{- end }}
-    {{- if .port }}
-    - port: {{ .port | int }}
-      protocol: {{ default "TCP" .protocol }}
-      targetPort: {{ default .port .targetPort | int }}
-      name: {{ default "http" .portName }}
+    {{- else }}
+    {{- /* Use container's ports instead */ -}}
+    {{- range $.Values.ports }}
+    - port: {{ default .containerPort .port | int }}
+      targetPort: {{ default .port .containerPort | int }}
       {{- with .appProtocol }}
       appProtocol: {{ . }}
       {{- end }}
-      {{- with .nodePort }}
-      nodePort: {{ . | int }}
+      {{- with .name}}
+      name: {{ . }}
       {{- end }}
+      {{- with .nodePort }}
+      nodePort: {{ . | int}}
+      {{- end }}
+      {{- with .protocol }}
+      protocol: {{ . }}
+      {{- end }}
+    {{- end }}
     {{- end }}
   {{- with .publishNotReadyAddresses }}
   publishNotReadyAddresses: {{ . }}
