@@ -41,6 +41,7 @@ service:
   annotations: {}
 ingress:
   annotations: {}
+networkPolicy: {}
 
 ### Security ###
 serviceAccount:

@@ -159,6 +159,44 @@
 #   extraHosts: []
 #   extraTls: []
 
+### Network Policies ###
+# networkPolicy:
+#   annotations: {}
+#   allowExternal: false # Set to true to accept connections from any source
+#   allowExternalEgress: false # Set to true to allow all egress connections from pod
+#   allowEgressDNS: false # Set to true to allow egress DNS connections from pod
+#   extraIngress: # Extra ingress rules
+#     - ports:
+#         - port: 1234
+#           protocol: UDP
+#       from:
+#         - podSelector:
+#             - matchLabels:
+#                 - role: frontend
+#         - podSelector:
+#             - matchExpressions:
+#                 - key: role
+#                   operator: In
+#                   values:
+#                     - frontend
+#   extraEgress: # Extra egress rules
+#     - ports:
+#         - port: 1234
+#           protocol: UDP
+#       to:
+#         - podSelector:
+#             - matchLabels:
+#                 - role: frontend
+#         - podSelector:
+#             - matchExpressions:
+#                 - key: role
+#                   operator: In
+#                   values:
+#                     - frontend
+#   ingressExtraPorts: [] # Extra ports to open for ingress connections
+#   ingressNSMatchLabels: {} # Labels to match to allow traffic from other namespaces
+#   ingressNSPodMatchLabels: {} # Pod labels to match to allow traffic from other namespaces
+
 ### Security ###
 # serviceAccount:
 #   create: false
