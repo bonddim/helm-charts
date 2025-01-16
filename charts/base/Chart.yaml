@@ -3,6 +3,16 @@ description: Library Helm chart for base Kubernetes resources
 name: base
 type: library
 version: 0.1.0
+maintainers:
+  - name: bonddim
+sources:
+  - https://github.com/bonddim/helm-charts
+keywords:
+  - common
+  - function
+  - helper
+  - library
+  - template
 dependencies:
   - name: common
     repository: oci://registry-1.docker.io/bitnamicharts
