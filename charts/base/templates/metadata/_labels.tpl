@@ -31,7 +31,7 @@ Wrapper around Bitnami's "common.labels.matchLabels" to add component label and 
     ) | fromYaml
 -}}
 {{- if $ctx.Values.component -}}
-  {{- merge $labels (dict "app.kubernetes.io/component" .context.Values.component) | toYaml -}}
+  {{- merge $labels (dict "app.kubernetes.io/component" $ctx.Values.component) | toYaml -}}
 {{- else -}}
   {{- $labels | toYaml -}}
 {{- end -}}
