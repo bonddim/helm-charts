@@ -74,6 +74,9 @@ spec:
       ports:
         {{- range . }}
         - containerPort: {{ default .port .containerPort | int }}
+          {{- with .hostIP }}
+          hostIP: {{ . }}
+          {{- end }}
           {{- with .name}}
           name: {{ . }}
           {{- end }}

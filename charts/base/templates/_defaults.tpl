@@ -4,85 +4,34 @@ Uncommented are used in the templates as fallback values.
 Using defaults in named template avoids need to guess path in context if this chart is imported with alias.
 */}}
 {{- define "base.defaults" -}}
+global: {}
+
 ### Common ###
-# global: {}
-nameOverride: ""
 fullnameOverride: ""
+nameOverride: ""
 namespaceOverride: ""
 commonAnnotations: {}
 commonLabels: {}
 
-### Workload ###
-# replicaCount:  # int
-image: {}
-  # registry: ""
-  # repository: ""
-  # pullPolicy: ""
-  # pullSecrets: []
-  # tag: ""
-# args: []
-# command: ""
-# dnsPolicy: ""
-enableServiceLinks: false
-# env: {}
-# envFrom: []
-hostNetwork: false
-# initContainers: []
-# lifecycle: []
-# livenessProbe: {}
-# nodeSelector: {}
-# affinity: {}
-# podAffinityPreset: ""
-# podAntiAffinityPreset: ""
-nodeAffinityPreset: {}
-#   type: ""
-#   key: ""
-#   values: []
+### Workloads ###
+## Pod ##
 podAnnotations: {}
 podLabels: {}
-# podSecurityContext: {}
-# priorityClassName: ""
-# readinessProbe: {}
-# resources: {}
+nodeAffinityPreset: []
+automountServiceAccountToken: false
+enableServiceLinks: false
+hostNetwork: false
+## Container ##
+image: {}
 resourcesPreset: none
-# restartPolicy: ""
-# securityContext: {}
-# sidecarContainers: []
-# startupProbe: {}
-# tolerations: []
-# volumeMounts: []
-# volumes: []
 
 ### Network ###
 service:
-  # name: "" # Override the name of the service resource
   annotations: {}
-  # port:
-  # portName: ""
-  # type: ""
-  # targetPort:
-  # nodePort: ""
-  # externalIPs: []
-  # loadBalancerIP: ""
-  # loadBalancerSourceRanges: []
-  # appProtocol: ""
-  # ports: []
 ingress:
-  # name: "" # Override the name of the ingress resource
   annotations: {}
-  # ingressClassName: ""
-  # hostname: ""
-  # paths: []
-  #   # - path: /
-  #   #   pathType: ImplementationSpecific
-  # tls: false
-  # extraHosts: []
-  # extraTls: []
 
 ### Security ###
-automountServiceAccountToken: false
-serviceAccount: {}
-  # create: false
-  # annotations: {}
-  # name: "" # Override the name of the service account
+serviceAccount:
+  annotations: {}
 {{- end -}}
