@@ -70,7 +70,7 @@ spec:
   {{- with .publishNotReadyAddresses }}
   publishNotReadyAddresses: {{ . }}
   {{- end }}
-  selector: {{- include "base.labels.matchLabels" (dict "customLabels" (merge $.Values.podLabels $.Values.commonLabels) "context" $) | nindent 4 }}
+  selector: {{- include "base.labels.matchLabels" (dict "context" $ "customLabels" $.Values.podLabels) | nindent 4 }}
   {{- with .sessionAffinity }}
   sessionAffinity: {{ . }}
   {{- end }}
