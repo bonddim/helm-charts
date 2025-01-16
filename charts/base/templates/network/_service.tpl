@@ -6,13 +6,7 @@
 {{- with .Values.service }}
 apiVersion: v1
 kind: Service
-metadata:
-  {{- with (merge .annotations $.Values.commonAnnotations) }}
-  annotations: {{- toYaml . | nindent 4 }}
-  {{- end }}
-  labels: {{- include "base.labels.standard" $ | nindent 4 }}
-  name: {{ default (include "base.names.fullname" $) .name }}
-  namespace: {{ include "common.names.namespace" $ }}
+metadata: {{- include "base.metadata" (dict "context" $ "values" .) | nindent 2 }}
 spec:
   {{- with .clusterIP }}
   clusterIP: {{ . }}

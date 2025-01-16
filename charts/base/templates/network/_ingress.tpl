@@ -7,13 +7,7 @@
 apiVersion: {{ include "common.capabilities.ingress.apiVersion" $ }}
 {{- with .Values.ingress }}
 kind: Ingress
-metadata:
-  {{- with (merge .annotations $.Values.commonAnnotations) }}
-  annotations: {{- toYaml . | nindent 4 }}
-  {{- end }}
-  labels: {{- include "base.labels.standard" $ | nindent 4 }}
-  name: {{ default (include "base.names.fullname" $ ) .name }}
-  namespace: {{ include "common.names.namespace" $ }}
+metadata: {{- include "base.metadata" (dict "context" $ "values" .) | nindent 2 }}
 spec:
   {{- if and .ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" $)) }}
   ingressClassName: {{ .ingressClassName | quote }}

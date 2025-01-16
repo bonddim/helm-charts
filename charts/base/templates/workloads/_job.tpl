@@ -5,7 +5,7 @@
 {{- define "base.job.tpl" -}}
 apiVersion: {{ include "common.capabilities.cronjob.apiVersion" (default . .context) }}
 kind: Job
-metadata: {{- include "base.metadata" . | nindent 2 }}
+metadata: {{- include "base.metadata" (dict "context" . "values" .Values.job) | nindent 2 }}
 spec: {{- include "base.job.spec" (dict "context" . "jobValues" .Values.job) | nindent 2 }}
 {{- end -}}
 
