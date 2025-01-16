@@ -10,8 +10,8 @@ spec:
   {{- with .Values.podManagementPolicy }}
   podManagementPolicy: {{ . }}
   {{- end }}
-  {{- if and .Values.replicaCount (not (.Values.autoscaling).enabled) }}
-  replicas: {{ .Values.replicaCount }}
+  {{- with .Values.replicaCount }}
+  replicas: {{ . }}
   {{- end }}
   {{ with .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ . }}

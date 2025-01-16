@@ -7,8 +7,8 @@ apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata: {{- include "base.metadata" . | nindent 2 }}
 spec:
-  {{- if and .Values.replicaCount (not (.Values.autoscaling).enabled) }}
-  replicas: {{ .Values.replicaCount }}
+  {{- with .Values.replicaCount }}
+  replicas: {{ . }}
   {{- end }}
   {{ with .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ . }}
