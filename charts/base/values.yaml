@@ -1,0 +1,204 @@
+### For a list of used values, see templates/_defaults.tpl file.
+
+### Global ###
+# May contain all values bellow.
+# They will be merged and overrided by the values in the chart.
+# Usefull for setting default values for all resources/components in the chart.
+# Example:
+# global:
+#   commonAnnotations:
+#     app.kubernetes.io/description: "My app description"
+#   image:
+#    registry: "myregistry.io"
+#   nodeSelector:
+#     kubernetes.io/arch: amd64
+#     kubernetes.io/os: linux
+# global: {}
+
+### Common ###
+# fullnameOverride: ""
+# nameOverride: ""
+# namespaceOverride: ""
+# commonAnnotations: {}
+# commonLabels: {}
+
+### Workloads ###
+# replicaCount:  # int
+# revisionHistoryLimit: # int
+# updateStrategy:
+# podManagementPolicy: "" # OrderedReady or Parallel for StatefulSet
+# volumeClaimTemplates: [] # for StatefulSet
+
+## Pod ##
+# podAnnotations: {}
+# podLabels: {}
+# podAffinityPreset: "" # "soft" or "hard"
+# podAntiAffinityPreset: "" # "soft" or "hard"
+# nodeAffinityPreset:
+#   type: "" # "soft" or "hard"
+#   key: ""
+#   values: []
+# affinity: {}
+# automountServiceAccountToken: false
+# initContainers: []
+# sidecarContainers: []
+# dnsPolicy: ""
+# enableServiceLinks: false
+# hostNetwork: false
+# nodeSelector: {}
+# podSecurityContext: {}
+# priorityClassName: ""
+# restartPolicy: ""
+# runtimeClassName: ""
+# schedulerName: ""
+# podSecurityContext: {}
+# shareProcessNamespace: ""
+# terminationGracePeriodSeconds: ""
+# tolerations: []
+# topologySpreadConstraints: []
+# volumes: []
+
+## Container ##
+# image:
+#   registry: ""
+#   repository: ""
+#   pullPolicy: ""
+#   pullSecrets: []
+#   tag: ""
+# args: []
+# command: ""
+# env: {}
+# envFrom: []
+# lifecycle: []
+# livenessProbe: {}
+# readinessProbe: {}
+# startupProbe: {}
+# ports:
+#   # at least port or conteinerPort must be defined.
+#   - containerPort: # container port number
+#     hostIP: ""
+#     name: ""
+#     protocol: ""
+#     port: # int. Used if containerPort is not set
+#     appProtocol: "" # used by service resource
+#     nodePort: # int # used by service resource
+# resources: {}
+# resourcesPreset: none
+# securityContext: {}
+# volumeMounts: []
+
+## CronJob ##
+# NOTE: restartPolicy should be set to "Never" or "OnFailure"
+# cronjob:
+#   schedule: "" # Required
+#   concurrencyPolicy: ""
+#   failedJobsHistoryLimit:
+#   startingDeadlineSeconds: ""
+#   successfulJobsHistoryLimit: 3
+#   suspend: false
+#   timezone: ""
+#   job: {} # See job values
+
+## Job ##
+# NOTE: restartPolicy should be set to "Never" or "OnFailure"
+# job:
+#   annotations: {}
+#   backoffLimit:
+#   activeDeadlineSeconds: ""
+#   completions:
+#   parallelism:
+#   suspend: false
+
+### Autoscaling ###
+# autoscale:
+#   behavior: {}
+#   maxReplicas:
+#   minReplicas: 1
+#   metrics: [] # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics
+#   targetCPUUtilizationPercentage: # int. Scale on CPU avarage utilization
+#   targetMemoryUtilizationPercentage: # int. Scale on memory avarage utilization
+#   scaleTargetRef:
+#     kind: Deployment
+#     name: ""
+#     apiVersion: ""
+
+### Network ###
+# service:
+#   annotations: {}
+#   name: "" # Override the name of the service resource
+#   clusterIP: ""
+#   externalIPs: []
+#   externalName: ""
+#   externalTrafficPolicy: ""
+#   healthCheckNodePort: ""
+#   loadBalancerIP: ""
+#   loadBalancerSourceRanges: []
+#   ports: # Overrides the ports defined for the container
+#     - port: # int. required
+#       targetPort: # container port or port name. If not set, it will be the same as the port field
+#       appProtocol: ""
+#       name: ""
+#       nodePort: # int
+#       protocol: ""
+#   publishNotReadyAddresses: # bool
+#   sessionAffinity: ""
+#   sessionAffinityConfig: {}
+#   topologyKeys: []
+#   type: ""
+
+# ingress:
+#   annotations: {}
+#   name: "" # Override the name of the ingress resource
+#   ingressClassName: ""
+#   hostname: ""
+#   paths: []
+#     # - path: /
+#     #   pathType: ImplementationSpecific
+#     #   port: # service port name or number. defaults to first port in container values
+#   tls: false
+#   extraHosts: []
+#   extraTls: []
+
+### Network Policies ###
+# networkPolicy:
+#   annotations: {}
+#   allowExternal: false # Set to true to accept connections from any source
+#   allowExternalEgress: false # Set to true to allow all egress connections from pod
+#   allowEgressDNS: false # Set to true to allow egress DNS connections from pod
+#   extraIngress: # Extra ingress rules
+#     - ports:
+#         - port: 1234
+#           protocol: UDP
+#       from:
+#         - podSelector:
+#             - matchLabels:
+#                 - role: frontend
+#         - podSelector:
+#             - matchExpressions:
+#                 - key: role
+#                   operator: In
+#                   values:
+#                     - frontend
+#   extraEgress: # Extra egress rules
+#     - ports:
+#         - port: 1234
+#           protocol: UDP
+#       to:
+#         - podSelector:
+#             - matchLabels:
+#                 - role: frontend
+#         - podSelector:
+#             - matchExpressions:
+#                 - key: role
+#                   operator: In
+#                   values:
+#                     - frontend
+#   ingressExtraPorts: [] # Extra ports to open for ingress connections
+#   ingressNSMatchLabels: {} # Labels to match to allow traffic from other namespaces
+#   ingressNSPodMatchLabels: {} # Pod labels to match to allow traffic from other namespaces
+
+### Security ###
+# serviceAccount:
+#   create: false
+#   annotations: {}
+#   name: "" # Override the name of the service account
