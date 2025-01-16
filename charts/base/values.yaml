@@ -73,15 +73,15 @@
 # livenessProbe: {}
 # readinessProbe: {}
 # startupProbe: {}
-# ports: []
+# ports:
 #   # at least port or conteinerPort must be defined.
-#   # - containerPort: # container port number
-#   #   hostIP: ""
-#   #   name: ""
-#   #   protocol: ""
-#   #   port: # int. Used if containerPort is not set
-#   #   appProtocol: "" # used by service resource
-#   #   nodePort: # int # used by service resource
+#   - containerPort: # container port number
+#     hostIP: ""
+#     name: ""
+#     protocol: ""
+#     port: # int. Used if containerPort is not set
+#     appProtocol: "" # used by service resource
+#     nodePort: # int # used by service resource
 # resources: {}
 # resourcesPreset: none
 # securityContext: {}
@@ -109,6 +109,19 @@
 #   parallelism:
 #   suspend: false
 
+### Autoscaling ###
+# autoscale:
+#   behavior: {}
+#   maxReplicas:
+#   minReplicas: 1
+#   metrics: [] # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics
+#   targetCPUUtilizationPercentage: # int. Scale on CPU avarage utilization
+#   targetMemoryUtilizationPercentage: # int. Scale on memory avarage utilization
+#   scaleTargetRef:
+#     kind: Deployment
+#     name: ""
+#     apiVersion: ""
+
 ### Network ###
 # service:
 #   annotations: {}
@@ -120,13 +133,13 @@
 #   healthCheckNodePort: ""
 #   loadBalancerIP: ""
 #   loadBalancerSourceRanges: []
-#   ports: [] # Overrides the ports defined for the container
-#     # - port: # int. required
-#     #   targetPort: # container port or name. If not set, it will be the same as the port field
-#     #   appProtocol: ""
-#     #   name: ""
-#     #   nodePort: # int
-#     #   protocol: ""
+#   ports: # Overrides the ports defined for the container
+#     - port: # int. required
+#       targetPort: # container port or port name. If not set, it will be the same as the port field
+#       appProtocol: ""
+#       name: ""
+#       nodePort: # int
+#       protocol: ""
 #   publishNotReadyAddresses: # bool
 #   sessionAffinity: ""
 #   sessionAffinityConfig: {}

@@ -31,6 +31,11 @@ cronjob:
 job:
   annotations: {}
 
+### Autoscaling ###
+autoscale:
+  scaleTargetRef:
+    kind: Deployment
+
 ### Network ###
 service:
   annotations: {}
