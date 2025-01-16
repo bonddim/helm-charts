@@ -87,6 +87,28 @@
 # securityContext: {}
 # volumeMounts: []
 
+## CronJob ##
+# NOTE: restartPolicy should be set to "Never" or "OnFailure"
+# cronjob:
+#   schedule: "" # Required
+#   concurrencyPolicy: ""
+#   failedJobsHistoryLimit:
+#   startingDeadlineSeconds: ""
+#   successfulJobsHistoryLimit: 3
+#   suspend: false
+#   timezone: ""
+#   job: {} # See job values
+
+## Job ##
+# NOTE: restartPolicy should be set to "Never" or "OnFailure"
+# job:
+#   annotations: {}
+#   backoffLimit:
+#   activeDeadlineSeconds: ""
+#   completions:
+#   parallelism:
+#   suspend: false
+
 ### Network ###
 # service:
 #   annotations: {}

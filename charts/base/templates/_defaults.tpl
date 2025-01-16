@@ -24,6 +24,12 @@ hostNetwork: false
 ## Container ##
 image: {}
 resourcesPreset: none
+## CronJob ##
+cronjob:
+  schedule: ""
+## Job ##
+job:
+  annotations: {}
 
 ### Network ###
 service:
