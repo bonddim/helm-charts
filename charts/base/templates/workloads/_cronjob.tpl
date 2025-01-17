@@ -6,8 +6,8 @@
 apiVersion: {{ include "common.capabilities.cronjob.apiVersion" . }}
 kind: CronJob
 metadata: {{- include "base.metadata" (dict "context" . "values" .Values.cronjob) | nindent 2 }}
-{{- with .Values.cronjob }}
 spec:
+  {{- with .Values.cronjob }}
   {{- with .concurrencyPolicy }}
   concurrencyPolicy: {{ . }}
   {{- end }}
@@ -27,7 +27,7 @@ spec:
   {{- with .timeZone }}
   timeZone: {{ . }}
   {{- end }}
+  {{- end }}
   jobTemplate:
-    spec: {{- include "base.job.spec" (dict "context" $ "jobValues" .job) | nindent 6 }}
-{{- end -}}
+    spec: {{- include "base.job.spec" (dict "context" $ "jobValues" .Values.cronjob.job) | nindent 6 }}
 {{- end -}}

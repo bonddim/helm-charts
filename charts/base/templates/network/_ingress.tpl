@@ -45,8 +45,8 @@ Will generate default path "/" to "http" port if provided "paths" is empty
 */}}
 {{- define "base.ingress.paths" -}}
 {{- $service := include "base.names.fullname" .context -}}
-{{- $firstPort := $.context.Values.ports | first }}
-{{- $defaultPort := default $firstPort.containerPort $firstPort.port -}}
+{{- $firstPort := default list .context.Values.ports | first }}
+{{- $defaultPort := coalesce $firstPort.name $firstPort.port $firstPort.containerPort "http" -}}
 {{- range (ternary (list (dict "path" "/" "port" $defaultPort)) .paths (empty .paths)) }}
 - path: {{ .path }}
   {{- if eq "true" (include "common.ingress.supportsPathType" $.context) }}
