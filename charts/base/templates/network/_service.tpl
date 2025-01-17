@@ -7,32 +7,31 @@ apiVersion: v1
 kind: Service
 metadata: {{- include "base.metadata" (dict "context" $ "values" .Values.service) | nindent 2 }}
 spec:
-{{- with .Values.service }}
-  {{- with .clusterIP }}
+  {{- with .Values.service.clusterIP }}
   clusterIP: {{ . }}
   {{- end }}
-  {{- with .externalIPs }}
+  {{- with .Values.service.externalIPs }}
   externalIPs: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with .externalName }}
+  {{- with .Values.service.externalName }}
   externalName: {{ . }}
   {{- end }}
-  {{- with .externalTrafficPolicy }}
+  {{- with .Values.service.externalTrafficPolicy }}
   externalTrafficPolicy: {{ . }}
   {{- end }}
-  {{- with .healthCheckNodePort }}
+  {{- with .Values.service.healthCheckNodePort }}
   healthCheckNodePort: {{ . }}
   {{- end }}
-  {{- with .loadBalancerIP }}
+  {{- with .Values.service.loadBalancerIP }}
   loadBalancerIP: {{ . }}
   {{- end }}
-  {{- with .loadBalancerSourceRanges }}
+  {{- with .Values.service.loadBalancerSourceRanges }}
   loadBalancerSourceRanges: {{- toYaml . | nindent 4 }}
   {{- end }}
   ports:
     {{- /* Use service.ports only if defined */ -}}
-    {{- if .ports }}
-    {{- range .ports }}
+    {{- if .Values.service.ports }}
+    {{- range .Values.service.ports }}
     - port: {{ .port | int }}
       targetPort: {{ default .port .targetPort | int }}
       {{- with .appProtocol }}
@@ -67,21 +66,20 @@ spec:
       {{- end }}
     {{- end }}
     {{- end }}
-  {{- with .publishNotReadyAddresses }}
+  {{- with .Values.service.publishNotReadyAddresses }}
   publishNotReadyAddresses: {{ . }}
   {{- end }}
   selector: {{- include "base.labels.matchLabels" (dict "context" $ "customLabels" $.Values.podLabels) | nindent 4 }}
-  {{- with .sessionAffinity }}
+  {{- with .Values.service.sessionAffinity }}
   sessionAffinity: {{ . }}
   {{- end }}
-  {{- with .sessionAffinityConfig }}
+  {{- with .Values.service.sessionAffinityConfig }}
   sessionAffinityConfig: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with .topologyKeys }}
+  {{- with .Values.service.topologyKeys }}
   topologyKeys: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with .type }}
+  {{- with .Values.service.type }}
   type: {{ . }}
   {{- end }}
-{{- end -}}
 {{- end -}}
